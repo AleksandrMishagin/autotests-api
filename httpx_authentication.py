@@ -18,6 +18,5 @@ refresh_payload = {
 refresh_response = httpx.post("http://127.0.0.1:8000/api/v1/authentication/refresh", json=refresh_payload)
 refresh_response_data = refresh_response.json()
 
-print ("Refresh response: ", refresh_response_data)
+("Refresh response: ", refresh_response_data)
 print ("Status code: ", refresh_response.status_code)
-
