@@ -1,31 +1,29 @@
-from clients.api_client import APIClient
+from typing import TypedDict
 from httpx import Response
-from typing import TypedDict, Any
+from clients.api_client import APIClient
 
 
-class UserCreateRequestDict(TypedDict, total=False):
+class CreateUserRequestDict(TypedDict):
     """
-    Описание структуры данных для создания нового пользователя.
-    Поддерживает любые переданные поля (email, username, password и т.д.).
+    Описание структуры запроса на создание пользователя.
     """
     email: str
     password: str
-    username: str
-    # Используем Any для поддержки дополнительных динамических полей
-    __extra__: Any
+    lastName: str
+    firstName: str
+    middleName: str
 
 
 class PublicUsersClient(APIClient):
     """
-     API клиент для работы с публичными эндпоинтами /api/v1/users.
-    Включает методы, не требующие авторизации.
+    Клиент для работы с /api/v1/users
     """
 
-    def create_user_api(self, request: UserCreateRequestDict) -> Response:
+    def create_user_api(self, request: CreateUserRequestDict) -> Response:
         """
-        Выполняет POST-запрос для создания нового пользователя.
+        Метод создает пользователя.
 
-        :param request: Словарь с данными пользователя (UserCreateRequestDict).
-        :return: Ответ от сервера в виде объекта httpx.Response.
+        :param request: Словарь с email, password, lastName, firstName, middleName.
+        :return: Ответ от сервера в виде объекта httpx.Response
         """
-        return self.post("api/v1/users", json=request)
+        return self.post("/api/v1/users", json=request)
