@@ -7,6 +7,9 @@ from clients.users.private_users_client import User
 
 
 class Course(TypedDict):
+    """
+    Описание структуры курса.
+    """
     id: str
     title: str
     maxScore: int
@@ -38,6 +41,9 @@ class CreateCourseRequestDict(TypedDict):
 
 
 class CreateCourseResponseDict(TypedDict):
+    """
+    Описание структуры ответа создания курса.
+    """
     course: Course
 
 
