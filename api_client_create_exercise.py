@@ -1,34 +1,37 @@
 from clients.courses.courses_client import get_courses_client, CreateCourseRequestDict
-from clients.files.files_client import get_files_client, CreateFileRequestDict
-from clients.private_http_builder import AuthenticationUserDict
-from clients.users.public_users_client import get_public_users_client, CreateUserRequestDict
+from clients.files.files_client import get_files_client
+from clients.files.files_schema import CreateFileRequestSchema
+from clients.users.users_schema import CreateUserRequestSchema
+from clients.private_http_builder import AuthenticationUserSchema
+from clients.users.public_users_client import get_public_users_client
+from clients.users.users_schema import CreateUserRequestSchema
 from clients.exercises.exercises_client import get_exercises_client, CreateExerciseRequestDict
 from tools.fakers import get_random_email
 
 
 public_users_client = get_public_users_client()
 
-create_user_request = CreateUserRequestDict(
-        email=get_random_email(),
-        password="string",
-        lastName="string",
-        firstName="string",
-        middleName="string"
+create_user_request = CreateUserRequestSchema(
+    email = get_random_email(),
+    password = "cfif",
+    last_name = "Mishagin",
+    first_name = "Aleksandr",
+    middle_name = "Sergeevich"
 )
 
 create_user_response = public_users_client.create_user(create_user_request)
-user_id = create_user_response['user']['id']
+user_id = create_user_response.user.id
 
-authentication_user = AuthenticationUserDict(
-        email=create_user_request['email'],
-        password=create_user_request['password']
+authentication_user = AuthenticationUserSchema(
+        email=create_user_request.email,
+        password=create_user_request.password
 )
 
 files_client = get_files_client(authentication_user)
 courses_client = get_courses_client(authentication_user)
 exercises_client = get_exercises_client(authentication_user)
 
-create_file_request = CreateFileRequestDict(
+create_file_request = CreateFileRequestSchema(
         filename="image.png",
         directory="courses",
         upload_file="./testdata/files/image.png"
@@ -43,7 +46,7 @@ create_course_request = CreateCourseRequestDict(
         minScore=10,
         description="Python API course",
         estimatedTime="2 weeks",
-        previewFileId=create_file_response['file']['id'],
+        previewFileId=create_file_response.file.id,
         createdByUserId=user_id
 )
 
