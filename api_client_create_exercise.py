@@ -7,13 +7,13 @@ from clients.users.public_users_client import get_public_users_client
 from clients.users.users_schema import CreateUserRequestSchema
 from clients.exercises.exercises_client import get_exercises_client
 from clients.exercises.exercises_schema import CreateExerciseRequestSchema
-from tools.fakers import get_random_email
+from tools.fakers import fake
 
 
 public_users_client = get_public_users_client()
 
 create_user_request = CreateUserRequestSchema(
-    email = get_random_email(),
+    email = fake.email(),
     password = "cfif",
     last_name = "Mishagin",
     first_name = "Aleksandr",
