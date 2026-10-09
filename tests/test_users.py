@@ -1,4 +1,4 @@
-from clients.users.public_users_client import get_public_users_client
+from clients.users.public_users_client import get_public_users_client, PublicUsersClient
 from clients.users.users_schema import CreateUserRequestSchema, CreateUserResponseSchema
 from http import HTTPStatus
 
@@ -10,7 +10,7 @@ import pytest
 
 @pytest.mark.users
 @pytest.mark.regression
-def test_create_user():
+def test_create_user(public_users_client: PublicUsersClient):
     public_users_client = get_public_users_client()
 
     request = CreateUserRequestSchema()
