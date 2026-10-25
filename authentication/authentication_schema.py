@@ -32,3 +32,9 @@ class RefreshRequestSchema(BaseModel):
     refresh_token: str = Field (alias="refreshToken", default_factory=fake.sentense)
 
     print(LoginRequestSchema())
+
+class AuthenticationUserSchema(LoginRequestSchema):
+    """
+    Описание структуры пользователя для аутентификации API-клиентов.
+    """
+    pass
