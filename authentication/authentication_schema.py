@@ -1,4 +1,4 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, ConfigDict
 from tools.fakers import fake
 
 
@@ -26,6 +26,7 @@ class LoginResponseSchema(BaseModel):
     token: TokenSchema
 
 class RefreshRequestSchema(BaseModel):
+    model_config = ConfigDict(frozen=True)
     """
     Описание структуры запроса для обновления токена.
     """
@@ -34,6 +35,7 @@ class RefreshRequestSchema(BaseModel):
     print(LoginRequestSchema())
 
 class AuthenticationUserSchema(LoginRequestSchema):
+    model_config = ConfigDict(frozen=True)
     """
     Описание структуры пользователя для аутентификации API-клиентов.
     """
